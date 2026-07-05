@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Memories with SALONI DI!! - Part 2</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&family=Parisienne&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --hot-pink: #ff007f;
+    --glass-border: rgba(255, 255, 255, 0.4);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(-45deg, #ff1493, #ff007f, #800080, #ff69b4);
+    background-size: 400% 400%;
+    animation: gradientMove 15s ease infinite;
+    color: white;
+    padding: 40px 20px;
+    overflow-x: hidden;
+}
+
+@keyframes gradientMove {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* Stars */
+.star {
+    position: fixed;
+    background: white;
+    border-radius: 50%;
+    opacity: 0.5;
+    animation: twinkle var(--duration) infinite;
+    pointer-events: none;
+    z-index: 1;
+}
+
+@keyframes twinkle {
+    0%,100% {opacity:0.3; transform:scale(1);}
+    50% {opacity:1; transform:scale(1.2);}
+}
+
+.container {
+    max-width: 1000px;
+    margin: auto;
+    text-align: center;
+    position: relative;
+    z-index: 10;
+}
+
+h1 {
+    font-family: 'Parisienne', cursive;
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    font-family: 'Dancing Script', cursive;
+    font-size: 1.5rem;
+    color: #ffd1dc;
+    margin-bottom: 30px;
+}
+
+/* Quote */
+.memory-quote {
+    background: rgba(255,255,255,0.1);
+    padding: 20px;
+    border-radius: 20px;
+    margin-bottom: 40px;
+    font-style: italic;
+}
+
+/* Gallery */
+.gallery {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+}
+
+/* Polaroid Card */
+.photo-card {
+    background: white;
+    padding: 12px 12px 25px;
+    border-radius: 4px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+    transform: rotate(var(--rotate));
+    transition: 0.3s;
+}
+
+.photo-card:hover {
+    transform: scale(1.05) rotate(0deg);
+}
+
+.photo-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 2px;
+}
+
+.photo-label {
+    margin-top: 10px;
+    color: #333;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Button */
+.next-btn {
+    margin-top: 40px;
+    padding: 15px 40px;
+    border-radius: 40px;
+    border: none;
+    background: linear-gradient(45deg,#ff007f,#ff69b4);
+    color: white;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* Music */
+.music-toggle {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    width: 55px;
+    height: 55px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.2);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="music-toggle" id="musicBtn">🎵</div>
+
+<div class="container">
+
+<h1>More Beautiful Memories</h1>
+<div class="subtitle">✨🧿 The Joy You Bring ❤️ ✨🧿</div>
+
+<div class="memory-quote">
+“Every little moment tied to you feels precious to me. 💝”
+<br>
+SORRY FOR THE PICS BUT THESE ARE BEST 😄
+</div>
+
+<div class="gallery">
+
+<div class="photo-card" style="--rotate:-3deg">
+<img src="7th.jpeg" class="photo-img">
+<div class="photo-label">Cutiee 💖</div>
+</div>
+
+<div class="photo-card" style="--rotate:2deg">
+<img src="8th.jpeg" class="photo-img">
+<div class="photo-label">Januu😄</div>
+</div>
+
+<div class="photo-card" style="--rotate:-1deg">
+<img src="9th.jpeg" class="photo-img">
+<div class="photo-label">Sweetheart 💝</div>
+</div>
+
+<div class="photo-card" style="--rotate:4deg">
+<img src="10.jpeg" class="photo-img">
+<div class="photo-label">Lovely ✨</div>
+</div>
+
+<div class="photo-card" style="--rotate:-2deg">
+<img src="11.jpeg" class="photo-img">
+<div class="photo-label">Skiky kurti!!!! haiii 💖</div>
+</div>
+
+<div class="photo-card" style="--rotate:3deg">
+<img src="12.jpeg" class="photo-img">
+<div class="photo-label">Angel 🌸</div>
+</div>
+
+</div>
+
+<button class="next-btn" id="nextBtn">Messages for you di!!</button>
+
+</div>
+
+<script>
+    function createStars() {
+        for (let i = 0; i < 100; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            star.style.width = Math.random() * 3 + 'px';
+            star.style.height = star.style.width;
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.setProperty('--duration', (Math.random() * 3 + 2) + 's');
+            document.body.appendChild(star);
+        }
+    }
+    createStars();
+
+    // ================= MUSIC =================
+    const musicBtn = document.getElementById("musicBtn");
+    const audio = new Audio("song4.mpeg");   // Use the same song as the previous page
+    audio.loop = true;
+
+    // Resume music from previous page
+    function syncMusic() {
+
+        const savedTime = localStorage.getItem("birthdayMusicTime");
+
+        if (savedTime) {
+            audio.currentTime = parseFloat(savedTime);
+        }
+
+        if (localStorage.getItem("birthdayMusicPlaying") === "true") {
+
+            audio.play().then(() => {
+                musicBtn.classList.add("playing");
+                musicBtn.innerHTML = "⏸️";
+            }).catch(() => {
+                musicBtn.innerHTML = "🎵";
+            });
+
+        }
+
+    }
+
+    window.addEventListener("load", syncMusic);
+
+    // Save current position continuously
+    audio.ontimeupdate = () => {
+        localStorage.setItem("birthdayMusicTime", audio.currentTime);
+    };
+
+    // Play / Pause button
+    musicBtn.onclick = () => {
+
+        if (audio.paused) {
+
+            audio.play();
+
+            musicBtn.classList.add("playing");
+            musicBtn.innerHTML = "⏸️";
+
+            localStorage.setItem("birthdayMusicPlaying", "true");
+
+        } else {
+
+            audio.pause();
+
+            musicBtn.classList.remove("playing");
+            musicBtn.innerHTML = "🎵";
+
+            localStorage.setItem("birthdayMusicPlaying", "false");
+
+        }
+
+    };
+
+    // Next Page
+    document.getElementById("nextBtn").onclick = () => {
+
+        localStorage.setItem("birthdayMusicTime", audio.currentTime);
+        localStorage.setItem("birthdayMusicPlaying", !audio.paused);
+
+        window.location.href = "page 8.html";
+
+    };
+</script>
+</body>
+</html>

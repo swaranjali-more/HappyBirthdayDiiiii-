@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Birthday Wish - SALONI DI!</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+
+<style>
+
+:root{
+--bg-purple:#9b4dff;
+--cake-pink:#ff85a1;
+--frosting:#ffffff;
+--magenta:#ff007f;
+--cyan:#00ffff;
+--yellow:#ffcc00;
+}
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
+body{
+background-color:var(--bg-purple);
+margin:0;
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+min-height:100vh;
+font-family:'Poppins',sans-serif;
+color:white;
+text-align:center;
+overflow:hidden;
+transition:1s;
+}
+
+/* Floating Hearts */
+
+.heart{
+position:fixed;
+bottom:-20px;
+font-size:20px;
+animation:floatUp linear forwards;
+pointer-events:none;
+z-index:1;
+opacity:0.8;
+}
+
+@keyframes floatUp{
+0%{
+transform:translateY(0) rotate(0deg);
+opacity:0;
+}
+20%{
+opacity:1;
+}
+100%{
+transform:translateY(-120vh) rotate(360deg);
+opacity:0;
+}
+}
+
+/* Bunting */
+
+.bunting-container{
+margin-bottom:20px;
+z-index:10;
+}
+
+.row{
+display:flex;
+justify-content:center;
+gap:6px;
+margin-bottom:8px;
+}
+
+.flag{
+width:32px;
+height:42px;
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+font-size:1.1rem;
+clip-path:polygon(0% 0%,100% 0%,100% 80%,50% 100%,0% 80%);
+}
+
+.c1{background:#ff0080;}
+.c2{background:#8a2be2;}
+.c3{background:#ffcc00;}
+.c4{background:#00ffff;}
+
+/* Cake */
+
+.cake-stage{
+position:relative;
+margin-top:60px;
+width:250px;
+display:flex;
+flex-direction:column;
+align-items:center;
+z-index:10;
+}
+
+.tier{
+position:relative;
+background:var(--cake-pink);
+border-radius:12px 12px 4px 4px;
+box-shadow:inset 0 -10px 0 rgba(0,0,0,0.1);
+}
+
+.tier-bottom{
+width:200px;
+height:70px;
+z-index:1;
+}
+
+.tier-top{
+width:140px;
+height:60px;
+z-index:2;
+margin-bottom:-10px;
+}
+
+.drip{
+position:absolute;
+top:0;
+width:100%;
+height:25px;
+background:var(--frosting);
+border-radius:10px 10px 0 0;
+}
+
+.drip::after{
+content:'';
+position:absolute;
+top:20px;
+left:0;
+width:100%;
+height:15px;
+
+background:
+radial-gradient(circle at 10% 0%,var(--frosting) 15px,transparent 16px),
+radial-gradient(circle at 30% 0%,var(--frosting) 20px,transparent 21px),
+radial-gradient(circle at 50% 0%,var(--frosting) 12px,transparent 13px),
+radial-gradient(circle at 70% 0%,var(--frosting) 18px,transparent 19px),
+radial-gradient(circle at 90% 0%,var(--frosting) 14px,transparent 15px);
+}
+
+/* Candles */
+
+.candle-group{
+position:absolute;
+top:-35px;
+width:100%;
+display:flex;
+justify-content:center;
+gap:20px;
+z-index:3;
+}
+
+.candle{
+width:8px;
+height:35px;
+background:linear-gradient(to bottom,#fff,var(--magenta));
+border-radius:4px;
+position:relative;
+}
+
+.flame{
+width:12px;
+height:18px;
+background:radial-gradient(ellipse at bottom,#fff 0%,orange 60%,transparent 100%);
+border-radius:50% 50% 20% 20%;
+position:absolute;
+top:-20px;
+left:-2px;
+box-shadow:0 0 15px orange;
+animation:flicker 0.15s infinite alternate;
+}
+
+@keyframes flicker{
+0%{
+transform:scale(1) rotate(-2deg);
+opacity:0.9;
+}
+100%{
+transform:scale(1.1) rotate(2deg);
+opacity:1;
+}
+}
+
+.plate{
+width:260px;
+height:15px;
+background:#eee;
+border-radius:50%;
+margin-top:-5px;
+box-shadow:0 5px 15px rgba(0,0,0,0.3);
+}
+
+/* Text */
+
+h1{
+font-family:'Great Vibes',cursive;
+font-size:3.5rem;
+margin:15px 0 5px;
+z-index:10;
+}
+
+.hidden{
+display:none !important;
+}
+
+/* Button */
+
+.btn-mic{
+background:var(--yellow);
+color:#333;
+border:none;
+padding:14px 28px;
+border-radius:30px;
+cursor:pointer;
+font-weight:600;
+margin-bottom:20px;
+box-shadow:0 4px 15px rgba(0,0,0,0.2);
+transition:0.3s;
+font-size:1rem;
+z-index:10;
+}
+
+.btn-mic:hover{
+transform:scale(1.05);
+background:#fff;
+}
+
+/* NEXT BUTTON */
+
+.next-btn{
+margin-top:35px;
+background:linear-gradient(45deg,#ff007f,#ff69b4);
+color:white;
+border:none;
+padding:15px 35px;
+border-radius:50px;
+font-size:1rem;
+font-weight:600;
+cursor:pointer;
+transition:0.3s;
+box-shadow:0 10px 25px rgba(255,20,147,0.4);
+display:none;
+z-index:20;
+}
+
+.next-btn:hover{
+transform:translateY(-3px) scale(1.05);
+}
+
+/* Glow */
+
+.glow{
+animation:glowAnim 1s infinite alternate;
+}
+
+@keyframes glowAnim{
+from{
+text-shadow:0 0 10px #fff;
+}
+to{
+text-shadow:0 0 25px #ffcc00;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- BUNTING -->
+
+<div class="bunting-container">
+
+<div class="row">
+<div class="flag c1">H</div>
+<div class="flag c2">A</div>
+<div class="flag c3">P</div>
+<div class="flag c4">P</div>
+<div class="flag c1">Y</div>
+</div>
+
+<div class="row">
+<div class="flag c4">B</div>
+<div class="flag c1">I</div>
+<div class="flag c2">R</div>
+<div class="flag c3">T</div>
+<div class="flag c1">H</div>
+<div class="flag c4">D</div>
+<div class="flag c2">A</div>
+<div class="flag c3">Y</div>
+</div>
+
+<div class="row">
+<div class="flag c1">S</div>
+<div class="flag c4">A</div>
+<div class="flag c2">L</div>
+<div class="flag c3">O</div>
+<div class="flag c1">N</div>
+<div class="flag c4">I</div>
+</div>
+
+<div class="row">
+<div class="flag c3">D</div>
+<div class="flag c2">I</div>
+</div>
+
+</div>
+
+<!-- TITLE -->
+
+<h1 class="glow">Happy Birthday Queen ❤️</h1>
+
+<!-- BUTTON -->
+
+<button class="btn-mic" id="startBtn">
+Click to Blow the Candles 🎂
+</button>
+
+<!-- CAKE -->
+
+<div class="cake-stage">
+
+<div class="tier tier-top">
+
+<div class="drip"></div>
+
+<div class="candle-group">
+
+<div class="candle">
+<div class="flame" id="f1"></div>
+</div>
+
+<div class="candle">
+<div class="flame" id="f2"></div>
+</div>
+
+<div class="candle">
+<div class="flame" id="f3"></div>
+</div>
+
+</div>
+</div>
+
+<div class="tier tier-bottom">
+<div class="drip"></div>
+</div>
+
+<div class="plate"></div>
+
+</div>
+
+<p id="statusText" style="margin-top:20px;font-size:1.1rem;">
+Ready for your wish? ✨
+</p>
+
+<!-- PAGE 10 BUTTON -->
+
+<button class="next-btn" id="nextBtn" onclick="goToPage10()">
+Open Your Surprise 🌸
+</button>
+
+<script>
+
+/* Floating Hearts */
+
+function createHeart(){
+
+const heart = document.createElement("div");
+
+heart.classList.add("heart");
+
+const emojis = ["💖","✨","🌸","🎀","🫶","💞"];
+
+heart.innerHTML = emojis[Math.floor(Math.random()*emojis.length)];
+
+heart.style.left = Math.random()*100 + "vw";
+
+heart.style.fontSize = (Math.random()*20 + 20) + "px";
+
+heart.style.animationDuration = (Math.random()*4 + 6) + "s";
+
+document.body.appendChild(heart);
+
+setTimeout(()=>{
+heart.remove();
+},10000);
+
+}
+
+setInterval(createHeart,500);
+
+/* Blow Logic */
+
+const startBtn = document.getElementById('startBtn');
+
+const statusText = document.getElementById('statusText');
+
+const nextBtn = document.getElementById('nextBtn');
+
+const flames = [
+document.getElementById('f1'),
+document.getElementById('f2'),
+document.getElementById('f3')
+];
+
+startBtn.addEventListener('click', async ()=>{
+
+try{
+
+const stream = await navigator.mediaDevices.getUserMedia({audio:true});
+
+const audioContext = new AudioContext();
+
+const analyzer = audioContext.createAnalyser();
+
+const microphone = audioContext.createMediaStreamSource(stream);
+
+microphone.connect(analyzer);
+
+analyzer.fftSize = 256;
+
+const dataArray = new Uint8Array(analyzer.frequencyBinCount);
+
+startBtn.classList.add('hidden');
+
+statusText.innerHTML = "🕯️ Blow hard into the mic sweethearttt 🫂✨";
+
+function checkBlow(){
+
+analyzer.getByteFrequencyData(dataArray);
+
+let sum = 0;
+
+for(let i=0;i<dataArray.length;i++){
+sum += dataArray[i];
+}
+
+let average = sum / dataArray.length;
+
+if(average > 50){
+
+flames.forEach(f => f.classList.add('hidden'));
+
+statusText.innerHTML =
+"✨ Wish Sent Successfullyyyy Diiii ❤️🎂✨";
+
+document.body.style.background =
+"radial-gradient(circle,#ff007f,#4b0082)";
+
+nextBtn.style.display = "inline-block";
+
+}else{
+
+requestAnimationFrame(checkBlow);
+
+}
+
+}
+
+checkBlow();
+
+}catch(err){
+
+alert("Please allow microphone access 🥺🎤");
+
+}
+
+});
+
+/* PAGE 10 REDIRECT */
+
+function goToPage10(){
+
+document.body.style.opacity = "0";
+
+setTimeout(()=>{
+
+window.location.href = "page10.html";
+
+},800);
+
+}
+
+</script>
+
+</body>
+</html>

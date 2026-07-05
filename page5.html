@@ -1,0 +1,877 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>For My Dearest Di!!</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Parisienne&family=Poppins:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,600;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #7209b7, #b5179e, #f72585, #7209b7);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+            padding: 60px 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Twinkling Stars Background */
+        .star {
+            position: fixed;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            z-index: 1;
+            pointer-events: none;
+            animation: twinkle var(--duration) infinite;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.3); }
+        }
+
+        /* Floating Petals/Sparkles */
+        .petal {
+            position: fixed;
+            background: radial-gradient(circle, #ffb3c6 20%, rgba(255,182,193,0) 70%);
+            border-radius: 50% 0 50% 50%;
+            z-index: 2;
+            pointer-events: none;
+            animation: floatPetal var(--speed) linear infinite;
+        }
+
+        @keyframes floatPetal {
+            0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% { transform: translateY(110vh) translateX(100px) rotate(360deg); opacity: 0; }
+        }
+
+        /* Main Container */
+        .container {
+            width: 100%;
+            max-width: 850px;
+            z-index: 10;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+        }
+        
+        /* Glassmorphism Main Welcome Card */
+        .card {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 40px;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            border: 3px solid rgba(255, 215, 0, 0.6);
+            box-shadow: 
+                0 0 40px rgba(255, 20, 147, 0.25),
+                0 25px 60px rgba(0, 0, 0, 0.3);
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+        
+        h1 {
+            font-family: 'Parisienne', cursive;
+            color: #ff1493;
+            font-size: clamp(2.8rem, 8vw, 4.5rem);
+            margin-bottom: 5px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.06);
+        }
+        
+        .princess-title {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            letter-spacing: 6px;
+            font-size: 0.95rem;
+            color: #b5179e;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .message-content {
+            font-size: 1.15rem;
+            line-height: 2;
+            color: #333;
+            text-align: justify;
+            text-justify: inter-word;
+            margin-bottom: 30px;
+            font-weight: 400;
+        }
+        
+        .message-content p {
+            margin-bottom: 25px;
+        }
+        
+        .highlight {
+            color: #ff007f;
+            font-weight: 600;
+            background: linear-gradient(120deg, rgba(255,209,220,0.5) 0%, rgba(255,209,220,0) 100%);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+        
+        .divider {
+            color: #ffd700;
+            font-size: 1.8rem;
+            margin: 25px 0;
+            letter-spacing: 15px;
+            text-shadow: 0 2px 5px rgba(212,175,55,0.5);
+        }
+        
+        .signature {
+            font-family: 'Parisienne', cursive;
+            font-size: 2.8rem;
+            color: #ff1493;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 2px dashed rgba(255, 20, 147, 0.15);
+        }
+
+        .signature span {
+            display: block;
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.9rem;
+            color: #7209b7;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        /* --- PREMIUM ALPHABET CARDS SECTION --- */
+        .alphabet-section-title {
+            font-family: 'Parisienne', cursive;
+            color: #ffd700;
+            font-size: 3.5rem;
+            text-align: center;
+            margin-top: 40px;
+            text-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+
+        .alphabet-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            width: 100%;
+        }
+
+        .alphabet-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: 35px;
+            padding: 50px 35px;
+            position: relative;
+            border: 2px solid rgba(255, 215, 0, 0.4);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.15);
+            text-align: center;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            overflow: hidden;
+        }
+
+        .alphabet-card:hover {
+            transform: translateY(-8px) scale(1.01);
+            box-shadow: 0 20px 45px rgba(255, 20, 147, 0.2);
+            border-color: rgba(255, 215, 0, 0.8);
+        }
+
+        .alphabet-card::before {
+            content: '✧';
+            position: absolute;
+            top: 20px;
+            font-size: 1.5rem;
+            color: #ffd700;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .letter-badge {
+            font-family: 'Playfair Display', serif;
+            font-size: 4.5rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #ff1493, #ffd700);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: -5px;
+            display: inline-block;
+        }
+
+        .wish-intro {
+            font-family: 'Playfair Display', serif;
+            font-style: italic;
+            font-size: 1.05rem;
+            color: #777;
+            margin-bottom: 10px;
+        }
+
+        .keyword-title {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.6rem;
+            font-weight: 600;
+            color: #b5179e;
+            margin-bottom: 25px;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .photo-frame {
+            width: 100%;
+            max-width: 450px;
+            height: 280px;
+            margin: 0 auto 30px;
+            border-radius: 20px;
+            border: 4px double #ffd700;
+            padding: 8px;
+            background: rgba(255,255,255,0.5);
+            box-shadow: inset 0 0 15px rgba(0,0,0,0.05);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .photo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+
+        .photo-placeholder {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #ffe6f2, #ffccd5);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #ff007f;
+            gap: 10px;
+            font-size: 0.95rem;
+            font-weight: 500;
+        }
+
+        .photo-placeholder i {
+            font-size: 2.5rem;
+            opacity: 0.7;
+        }
+
+        .story-text {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #444;
+            padding: 0 15px;
+            font-weight: 400;
+        }
+
+        .universe-tag {
+            display: inline-block;
+            margin-top: 20px;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-weight: 600;
+            padding: 4px 12px;
+            border-radius: 20px;
+            background: rgba(181, 23, 158, 0.1);
+            color: #b5179e;
+        }
+        
+        .next-btn {
+            background: linear-gradient(45deg, #ff007f, #7209b7);
+            color: white;
+            border: none;
+            padding: 22px 60px;
+            font-size: 1.05rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            margin: 40px auto 10px;
+            transition: all 0.4s ease;
+            box-shadow: 0 12px 30px rgba(255, 20, 147, 0.4);
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .next-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 20, 147, 0.6);
+            background: linear-gradient(45deg, #7209b7, #ff007f);
+        }
+        
+        .music-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.25);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            border: 2px solid rgba(255,255,255,0.4);
+            z-index: 100;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+        }
+
+        .music-toggle.playing {
+            background: #ff007f;
+            border-color: #ffd700;
+            box-shadow: 0 0 25px rgba(255, 0, 127, 0.6);
+        }
+        
+        @media (max-width: 600px) {
+            .card { padding: 45px 20px; border-width: 2px; }
+            .alphabet-card { padding: 40px 15px; }
+            h1 { font-size: 3rem; }
+            .photo-frame { height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="music-toggle" id="musicBtn">🎵</div>
+
+<div class="container">
+    
+    <div class="card">
+        <div class="card-header">
+            <h1>Happy Birthday, DI!</h1>
+            <span class="princess-title">My Prettiest QUEEN</span>
+        </div>
+        
+        <div class="divider">✦ ✧ ✦ ✧ ✦</div>
+        
+        <div class="message-content">
+
+    <p style="text-align:center;">
+        I would like to dedicate these few lines to you... ❤️
+    </p>
+
+    <p style="text-align:center; font-style:italic; font-weight:500; font-size:1.2rem;">
+        "Kuch Log Raste Mai Milate Hai,<br>
+        Aur Manjil Se Jyada Yaad Aate Hai"
+    </p>
+
+    <p style="text-align:center;">
+        Shayad is quote ka asli matlab mujhe tab samajh aaya jab aap meri life ka hissa bane.
+        Kuch log sirf yaadein nahi dete... woh apni ek permanent jagah chhod jaate hain.
+        Aur aap unhi logon mein se ek hain.
+    </p>
+
+    <p style="text-align:center;">
+        Bas itna hi kehna tha...
+        Thank you for every smile, every memory, every conversation,
+        aur har uss moment ke liye jo aaj bhi yaad aata hai.
+    </p>
+
+</div>
+
+<div class="signature">
+    Always cheering for you... 🌸
+    <span>Your Swara ❤️</span>
+</div>
+        </div>
+    </div>
+
+    <h2 class="alphabet-section-title">If This Alphabet Could Become A Wish...</h2>
+
+    <div class="alphabet-grid">
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">A</div>
+            <div class="keyword-title">Aashiqui ✨</div>
+            <div class="photo-frame">
+                <img src="a.jpeg" alt="Memory A">
+            </div>
+            <div class="story-text">
+                "Bollywood styles love with big grand gestures, but for you, I wish for an unconditional 'Aashiqui' with life itself. May every morning bring a romance with your dreams, and may you find magic in the tiniest moments, just like an classic romantic movie track playing in the background."
+            </div>
+            <div class="universe-tag">🎬 Bollywood Vibes</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">B</div>
+            <div class="keyword-title">Brave 🏹</div>
+            <div class="photo-frame">
+                <img src="b.jpeg" alt="Memory B">
+            </div>
+            <div class="story-text">
+                "Like Merida from Disney's Brave, I hope you always have the courage to write your own destiny and change your own fate. Whenever life gets tough, remember you have a roaring lion's spirit inside that beautiful heart. Keep chasing your goals fearlessly, Di!"
+            </div>
+            <div class="universe-tag">🎥 Disney Universe</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">C</div>
+            <div class="keyword-title">Cinderella's Sparkle 👑</div>
+            <div class="photo-frame">
+                <img src="c.jpeg" alt="Memory C">
+            </div>
+            <div class="story-text">
+                "No matter how dark the night gets, the clock will eventually strike twelve, and your fairy-tale dreams will materialize. You truly are the Queen of goodness, and I wish that your shoes are always premium, your smiles everlasting, and your magic never-ending!"
+            </div>
+            <div class="universe-tag">🎭 Pixar & Disney</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">D</div>
+            <div class="keyword-title">Daylight ☀️</div>
+            <div class="photo-frame">
+                <img src="d.jpeg" alt="Memory D">
+            </div>
+            <div class="story-text">
+                "Taylor Swift once sang about finding 'Daylight' after believing everything was just burning Red or dark. I hope every chapter of your life feels exactly like that—full of warmth, bright clarity, and a golden peace that makes you forget every shadow of the past."
+            </div>
+            <div class="universe-tag">🎵 Taylor Swift Universe</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">E</div>
+            <div class="keyword-title">Endgame 🦸</div>
+            <div class="photo-frame">
+                <img src="e.jpeg" alt="Memory E">
+            </div>
+            <div class="story-text">
+                "In a multiverse full of infinite possibilities, meeting you was my absolute win. Whatever challenges cross your path, I wish you an 'Endgame' level victory where you conquer every dream you set your eyes on. Because you have a superpower called pure forgivness!"
+            </div>
+            <div class="universe-tag">🦸 Marvel Universe</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">F</div>
+            <div class="keyword-title">Fly (Ghibli Skies) 🌊</div>
+            <div class="photo-frame">
+                <img src="f.jpeg" alt="Memory F">
+            </div>
+            <div class="story-text">
+                "Like the gorgeous, peaceful winds of a Studio Ghibli movie, I wish your life remains untouched by chaotic noise. I hope you fly through life's skies with the gentleness of Kiki and the endless freedom of Totoro's forest, completely unbothered and purely happy."
+            </div>
+            <div class="universe-tag">🌊 Studio Ghibli Magic</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">G</div>
+            <div class="keyword-title">Glow 🌻</div>
+            <div class="photo-frame">
+                <img src="g.jpeg" alt="Memory G">
+            </div>
+            <div class="story-text">
+                "There is a quote that says, 'Some lights shine so brightly they show others the way.' That is exactly what your aura does, Di. I wish you a lifelong glow that radiates from your internal happiness out to the world, turning every place you step into a beautiful garden."
+            </div>
+            <div class="universe-tag">🌻 Light & Quotes</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">H</div>
+            <div class="keyword-title">Hogwarts Magic ⚡</div>
+            <div class="photo-frame">
+                <img src="h.jpeg" alt="Memory H">
+            </div>
+            <div class="story-text">
+                "May life keep surprising you with unexpected, wonderful pieces of magic, because you deserve a world that never stops amazing you. Whenever things look bleak, I wish that you find the 'Lumos' to light your path, turning every ordinary day into something completely extraordinary, Di!"
+            </div>
+            <div class="universe-tag">⚡ Harry Potter Universe</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">I</div>
+            <div class="keyword-title">Incredibles 🎭</div>
+            <div class="photo-frame">
+<img src="h.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Add 9th.jpeg or 10.jpeg here</div>
+            </div>
+            <div class="story-text">
+                "You manage your responsibilities, support everyone around you, and still manage to look absolutely flawless while doing it. You don't need a cape to be a real-life superhero. I wish that your strength remains unshakeable and you always realize how truly 'Incredible' you are to me."
+            </div>
+            <div class="universe-tag">🎭 Pixar Multiverse</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">J</div>
+            <div class="keyword-title">Jaane Tu Ya Jaane Na 💖</div>
+            <div class="photo-frame">
+<img src="j.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "Like the purest bonds shown on screen, ours is a mix of endless banter, immense support, and absolute love. 'Jaane tu ya jaane na... but you are truly my ultimate comfort person, Di. I wish that no distance ever dims our late-night talks or the warmth of our friendship."
+            </div>
+            <div class="universe-tag">💖 Friendship References</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">K</div>
+            <div class="keyword-title">Koffee & Conversations ☕</div>
+            <div class="photo-frame">
+<img src="k.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "Forget Bollywood gossip—my absolute favorite conversations are the ones spent laughing and sharing updates with you. I wish for a lifetime of warm beverages, cozy evenings, and endless heart-to-hearts where we can talk about everything and nothing at all under the sun."
+            </div>
+            <div class="universe-tag">🎬 Bollywood Pop Culture</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">L</div>
+            <div class="keyword-title">Lover 💕</div>
+            <div class="photo-frame">
+<img src="l.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "I hope your life is surrounded by the kind of devotion Taylor sings about—where you feel safe, deeply valued, and endlessly celebrated. May you build a gorgeous world where you've got a guitar, a heart full of joy, and people who will love you through all seasons unconditionally."
+            </div>
+            <div class="universe-tag">🎵 Taylor Swift Universe</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">M</div>
+            <div class="keyword-title">Moana's Horizon 🌊</div>
+            <div class="photo-frame">
+<img src="m.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "See the line where the sky meets the sea? It calls you, Di! I wish that you always possess the wild courage to sail past the reef of your comfort zone. May the wind always fill your sails, and may you confidently conquer every vast milestone calling your name out there."
+            </div>
+            <div class="universe-tag">🎥 Disney Universe</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">N</div>
+            <div class="keyword-title">Narnia's Wonders ❄️</div>
+            <div class="photo-frame">
+<img src="n.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "Sometimes, life can feel ordinary until you open a random door and stumble into a realm of breathtaking wonders. I wish that whenever you walk through new transitions in life, you discover unexpected magic, brilliant opportunities, and the golden crowns meant for royalty like you."
+            </div>
+            <div class="universe-tag">🌻 Famous Stories & Quotes</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">O</div>
+            <div class="keyword-title">Ohana 🌺</div>
+            <div class="photo-frame">
+<img src="o.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "Disney taught us that 'Ohana means family, and family means nobody gets left behind or forgotten.' No matter where life takes us or how busy our schedules get, remember that you always have a safe haven in my heart. I wish that you always feel anchored, secure, and unconditionally backed by the people who love you most."
+            </div>
+            <div class="universe-tag">🎥 Disney Universe</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">P</div>
+            <div class="keyword-title">Paper Rings 💍</div>
+            <div class="photo-frame">
+<img src="p.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "Taylor Swift sang about loving someone so much you'd marry them with paper rings. That's the exact kind of pure, joyful, and uncomplicated happiness I wish for your life. May your days be filled with shiny things, but more importantly, may they be rich with genuine laughter, dance parties in the kitchen, and relationships that bring you total peace."
+            </div>
+            <div class="universe-tag">🎵 Taylor Swift Universe</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">Q</div>
+            <div class="keyword-title">Queen's Crown 👑</div>
+            <div class="photo-frame">
+<img src="q.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "As the quote goes, 'A queen is not afraid to fail. Failure is another steppingstone to greatness.' Di, you already carry yourself with so much dignity, grace, and empathy. My wish for you is that you never let anyone make you feel small, never lower your standards, and always wear your invisible crown with absolute pride."
+            </div>
+            <div class="universe-tag">🌻 Famous Quotes & Royalty</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">R</div>
+            <div class="keyword-title">Ratatouille's Feast 🍳</div>
+            <div class="photo-frame">
+<img src="r.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "Pixar beautifully showed us that 'anyone can cook' and that life's true flavor comes from passion. I wish that your life feels like a magnificent, gourmet feast—overflowing with delicious experiences, comfort food that warms your soul, and the freedom to experiment and create your own perfect recipe for happiness."
+            </div>
+            <div class="universe-tag">🎭 Pixar Multiverse</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">S</div>
+            <div class="keyword-title">Shanti 🕊️</div>
+            <div class="photo-frame">
+<img src="s.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "In classic Bollywood style, 'Om Shanti Om' reminds us that if a movie hasn't ended happily, it's because 'picture abhi baaki hai mere dost.' I wish an absolute sense of 'Shanti' (peace) for your life. No matter how dramatic or chaotic the plot twists of life get, may you always find a calm, beautiful, and happy ending waiting for you."
+            </div>
+            <div class="universe-tag">🎬 Bollywood Vibes</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">T</div>
+            <div class="keyword-title">Time Stone ⏳</div>
+            <div class="photo-frame">
+<img src="t.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "If I could borrow Doctor Strange's Time Stone from the Marvel Multiverse, I would freeze every single moment you laugh until your stomach hurts. Since I can't do that, I wish that your future is filled with so many spectacular memories that time seems to slow down just so you can savor your beautiful journey."
+            </div>
+            <div class="universe-tag">🦸 Marvel Universe</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">U</div>
+            <div class="keyword-title">Unstoppable ✨</div>
+            <div class="photo-frame">
+<img src="u.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "There is a striking power in being soft-hearted yet incredibly resilient. I wish that your drive, your career, and your self-love become completely 'Unstoppable.' May you break every glass ceiling, quiet every doubt, and build an empire of success that makes everyone step back in complete awe of you."
+            </div>
+            <div class="universe-tag">🌻 Emotional Wishes</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">V</div>
+            <div class="keyword-title">Viva la Vida 🌻</div>
+            <div class="photo-frame">
+
+<img src="v.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "Literally translating to 'Live Life,' I wish that your days are painted with vibrant colors, untamed laughter, and zero regrets. Like a masterpiece painting from a brilliant artist, may your life be loud, beautiful, adventurous, and filled with experiences that make you shout how much you love being alive."
+            </div>
+            <div class="universe-tag">🌻 Famous Quotes & Philosophy</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">W</div>
+            <div class="keyword-title">Wildest Dreams 🌌</div>
+            <div class="photo-frame">
+<img src="w.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "I hope your reality surpasses even your 'Wildest Dreams'—just like the magic Taylor Swift sings about. May your career fly higher than you expected, your heart find deeper joy than you imagined, and your life turn into a gorgeous storybook world where every dream gracefully comes true."
+            </div>
+            <div class="universe-tag">🎵 Taylor Swift Universe</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">X</div>
+            <div class="keyword-title">X-Factor ⚡</div>
+            <div class="photo-frame">
+<img src="x.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "Some people walk into a room and instantly change the energy with their warmth. That is your ultimate X-Factor, Di. You have a rare, magnetic kindness that heals people and brings smiles effortlessly. Never change that special spark; it's your real-life superpower."
+            </div>
+            <div class="universe-tag">🦸 Marvel & Hero Energy</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">Y</div>
+            <div class="keyword-title">Yeh Jawaani Hai Deewani 🎬</div>
+            <div class="photo-frame">
+<img src="y.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "Life is a beautiful journey, and as Bunny says, 'Jitna bhi try karo, kuch na kuch toh chhootega hi... toh jahan hain, wahin ka mazaa lete hain.' I wish you the travel adventures of Naina and Bunny combined, the ultimate happiness, and the realization that your youth and joy are completely infinite!"
+            </div>
+            <div class="universe-tag">🎬 Bollywood Vibes</div>
+        </div>
+
+        <div class="alphabet-card">
+            <div class="wish-intro">If this alphabet could become a wish...</div>
+            <div class="letter-badge">Z</div>
+            <div class="keyword-title">Zootopia's Spirit 🦊</div>
+            <div class="photo-frame">
+<img src="z.jpeg" alt="Memory H">
+                <div class="photo-placeholder"><i class="fas fa-camera"></i>📸 Memory Photo Placeholder</div>
+            </div>
+            <div class="story-text">
+                "We conclude our alphabet with a powerful reminder from Disney: 'Anyone can be anything.' Never place limits on your growth or what you can achieve, Di. Keep trying everything, keep conquering your fears, and stay beautifully relentless. Your Swara is always cheering for you!"
+            </div>
+            <div class="universe-tag">🎥 Disney Universe</div>
+        </div>
+
+    </div>
+
+    <button class="next-btn" id="nextBtn">
+        Continue the Journey <i class="fas fa-arrow-right"></i>
+    </button>
+</div>
+
+<script>
+    // Create Twinkling Stars
+    function createStars() {
+        for (let i = 0; i < 60; i++) {
+            const star = document.createElement('div');
+            star.className = 'star';
+            const size = Math.random() * 3 + 'px';
+            star.style.width = size;
+            star.style.height = size;
+            star.style.left = Math.random() * 100 + 'vw';
+            star.style.top = Math.random() * 100 + 'vh';
+            star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
+            document.body.appendChild(star);
+        }
+    }
+    
+    // Create Floating Rose Petals
+    function createPetals() {
+        for (let i = 0; i < 20; i++) {
+            const petal = document.createElement('div');
+            petal.className = 'petal';
+            const size = Math.random() * 15 + 10 + 'px';
+            petal.style.width = size;
+            petal.style.height = size;
+            petal.style.left = Math.random() * 100 + 'vw';
+            petal.style.top = Math.random() * -10 + 'vh';
+            petal.style.setProperty('--speed', Math.random() * 8 + 6 + 's');
+            document.body.appendChild(petal);
+        }
+    }
+    
+    createStars();
+    createPetals();
+
+    // Preserved Music Continuity Logic
+    const musicBtn = document.getElementById("musicBtn");
+    const audio = new Audio("song4.mpeg"); 
+    audio.loop = true;
+
+    const syncMusic = () => {
+        const savedTime = localStorage.getItem('birthdayMusicTime');
+        if (savedTime) {
+            audio.currentTime = parseFloat(savedTime);
+        }
+        
+        if (localStorage.getItem('birthdayMusicPlaying') === 'true') {
+            audio.play().then(() => {
+                musicBtn.classList.add("playing");
+                musicBtn.innerHTML = "⏸️";
+            }).catch(() => {
+                musicBtn.innerHTML = "🎵";
+            });
+        }
+    };
+
+    audio.ontimeupdate = () => {
+        localStorage.setItem('birthdayMusicTime', audio.currentTime);
+    };
+
+    musicBtn.onclick = () => {
+        if (audio.paused) {
+            audio.play();
+            musicBtn.classList.add("playing");
+            musicBtn.innerHTML = "⏸️";
+            localStorage.setItem('birthdayMusicPlaying', 'true');
+        } else {
+            audio.pause();
+            musicBtn.classList.remove("playing");
+            musicBtn.innerHTML = "🎵";
+            localStorage.setItem('birthdayMusicPlaying', 'false');
+        }
+    };
+
+    window.addEventListener('load', syncMusic);
+
+    window.addEventListener('click', () => {
+        if (localStorage.getItem('birthdayMusicPlaying') === 'true' && audio.paused) {
+            audio.play();
+            musicBtn.classList.add("playing");
+            musicBtn.innerHTML = "⏸️";
+        }
+    }, { once: true });
+
+    // Link smoothly to the next file in your folder structure
+    document.getElementById('nextBtn').addEventListener('click', function() {
+        window.location.href = 'page6.html';
+    });
+</script>
+
+</body>
+</html>

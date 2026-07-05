@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surprise for SALONI DI</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Parisienne&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
+<style>
+:root {
+--pink-main: #ff1493;
+--pink-light: #ff69b4;
+--gold: #ffd700;
+--glass-border: rgba(255, 255, 255, 0.4);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+background: #ff007f;
+min-height: 100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+font-family: 'Poppins', sans-serif;
+overflow: hidden;
+}
+
+/* --- THE PINK GIFT WRAP LAYER --- */
+#giftLayer {
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background: linear-gradient(135deg, var(--pink-main), var(--pink-light), #ff85a1);
+z-index: 100;
+display: flex;
+align-items: center;
+justify-content: center;
+transition: all 1.2s cubic-bezier(0.9, 0, 0.1, 1);
+}
+
+.ribbon-v {
+position: absolute;
+width: 70px;
+height: 100%;
+background: var(--gold);
+box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+}
+.ribbon-h {
+position: absolute;
+height: 70px;
+width: 100%;
+background: var(--gold);
+box-shadow: inset 0 0 20px rgba(0,0,0,0.2);
+}
+
+.bow-wrap {
+position: relative;
+z-index: 110;
+cursor: pointer;
+filter: drop-shadow(0 10px 15px rgba(0,0,0,0.3));
+transition: transform 0.3s ease;
+}
+.bow-wrap:hover { transform: scale(1.1); }
+
+.loop {
+width: 90px;
+height: 90px;
+background: var(--gold);
+border-radius: 50% 50% 0 50%;
+display: inline-block;
+transform: rotate(45deg);
+border: 2px solid #e6c200;
+}
+.loop.right {
+transform: rotate(135deg);
+border-radius: 50% 50% 50% 0;
+margin-left: -15px;
+}
+.knot {
+width: 45px;
+height: 45px;
+background: #ffcc00;
+border-radius: 12px;
+position: absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+z-index: 2;
+box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+}
+
+.tap-text {
+position: absolute;
+top: 120%;
+width: 200px;
+left: 50%;
+transform: translateX(-50%);
+color: white;
+text-align: center;
+font-weight: 600;
+letter-spacing: 2px;
+animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+0%, 100% { opacity: 0.6; transform: translateX(-50%) scale(1); }
+50% { opacity: 1; transform: translateX(-50%) scale(1.1); }
+}
+
+.unwrapped #giftLayer {
+transform: scale(3);
+opacity: 0;
+pointer-events: none;
+}
+
+#sparkleCanvas {
+position: fixed;
+top: 0;
+left: 0;
+z-index: 1;
+background: radial-gradient(circle, #ff007f, #800080);
+}
+
+.main-card {
+position: relative;
+z-index: 10;
+text-align: center;
+background: rgba(255, 255, 255, 0.15);
+backdrop-filter: blur(20px);
+-webkit-backdrop-filter: blur(20px);
+padding: 50px;
+border-radius: 40px;
+border: 1px solid var(--glass-border);
+box-shadow: 0 25px 50px rgba(0, 0, 0, 0.2);
+opacity: 0;
+transform: translateY(30px);
+transition: 1s 0.5s ease;
+color: white;
+}
+.unwrapped .main-card {
+opacity: 1;
+transform: translateY(0);
+}
+
+.bday-title {
+font-family: 'Parisienne', cursive;
+font-size: clamp(2.5rem, 8vw, 4rem);
+color: #fff;
+margin-bottom: 15px;
+text-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+}
+
+.next-btn {
+background: linear-gradient(45deg, #ff007f, #ff69b4);
+color: white;
+border: none;
+padding: 18px 45px;
+font-size: 1.1rem;
+font-weight: 600;
+border-radius: 50px;
+cursor: pointer;
+margin-top: 30px;
+box-shadow: 0 10px 25px rgba(255, 20, 147, 0.4);
+transition: 0.3s;
+text-transform: uppercase;
+letter-spacing: 1px;
+}
+.next-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 35px rgba(255, 20, 147, 0.6); }
+
+/* Floating Audio Control */
+.music-toggle {
+position: fixed;
+bottom: 40px;
+right: 40px;
+background: rgba(255, 255, 255, 0.2);
+backdrop-filter: blur(10px);
+width: 55px;
+height: 55px;
+border-radius: 50%;
+display: flex;
+align-items: center;
+justify-content: center;
+font-size: 1.4rem;
+border: 1px solid var(--glass-border);
+z-index: 200; /* Higher than gift layer */
+cursor: pointer;
+transition: 0.3s;
+color: white;
+}
+.music-toggle.playing {
+background: var(--pink-main);
+box-shadow: 0 0 20px var(--pink-main);
+}
+</style>
+</head>
+<body>
+
+<canvas id="sparkleCanvas"></canvas>
+
+<div class="music-toggle" id="musicBtn">🎵</div>
+
+<div id="giftLayer">
+<div class="ribbon-v"></div>
+<div class="ribbon-h"></div>
+<div class="bow-wrap" onclick="unWrap()">
+<div class="loop"></div>
+<div class="loop right"></div>
+<div class="knot"></div>
+<p class="tap-text">Something For You Queen🌸</p>
+</div>
+</div>
+
+<div class="main-card">
+<p style="letter-spacing: 5px; color: #ffd1dc; text-transform: uppercase; font-size: 0.8rem;">To the Beautiful Soul in my Life</p>
+<h1 class="bday-title">A Little Surprise For You Sweetheart❤️</h1>
+<p style="color: #ffd1dc; font-weight: 300;">Made with warmth, respect, and lots of good wishes ❤️</p>
+<button class="next-btn" onclick="goToPage5()">
+Please click here 🎀 <i class="fas fa-envelope-open-heart"></i>
+</button>
+</div>
+
+<script>
+// --- Music Logic (Cross-Page Sync) ---
+const musicBtn = document.getElementById("musicBtn");
+const audio = new Audio("song4.mpeg");
+audio.loop = true;
+
+const syncMusic = () => {
+const savedTime = localStorage.getItem('birthdayMusicTime');
+if (savedTime) { audio.currentTime = parseFloat(savedTime); }
+if (localStorage.getItem('birthdayMusicPlaying') === 'true') {
+audio.play().then(() => {
+musicBtn.classList.add("playing");
+musicBtn.innerHTML = "⏸️";
+}).catch(() => {
+musicBtn.innerHTML = "🎵";
+});
+}
+};
+
+audio.ontimeupdate = () => { localStorage.setItem('birthdayMusicTime', audio.currentTime); };
+
+musicBtn.onclick = () => {
+if (audio.paused) {
+audio.play();
+musicBtn.classList.add("playing");
+musicBtn.innerHTML = "⏸️";
+localStorage.setItem('birthdayMusicPlaying', 'true');
+} else {
+audio.pause();
+musicBtn.classList.remove("playing");
+musicBtn.innerHTML = "🎵";
+localStorage.setItem('birthdayMusicPlaying', 'false');
+}
+};
+
+window.addEventListener('load', syncMusic);
+
+// --- Unwrap Logic ---
+function unWrap() {
+document.body.classList.add('unwrapped');
+// Play music if not already playing when she interacts
+if(localStorage.getItem('birthdayMusicPlaying') === 'true' && audio.paused) {
+audio.play();
+musicBtn.classList.add("playing");
+musicBtn.innerHTML = "⏸️";
+}
+// Confetti Burst
+for(let i=0; i<100; i++) {
+particles.push(new Particle(window.innerWidth/2, window.innerHeight/2));
+}
+}
+
+function goToPage5() {
+document.querySelector('.main-card').style.opacity = '0';
+setTimeout(() => { window.location.href = 'page5.html'; }, 800);
+}
+
+// --- Sparkle Animation ---
+const canvas = document.getElementById('sparkleCanvas');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+let particles = [];
+const colors = ['#ff1493', '#ff69b4', '#ffd700', '#ffffff'];
+
+class Particle {
+constructor(x, y) {
+this.x = x || Math.random() * canvas.width;
+this.y = y || Math.random() * canvas.height;
+this.size = Math.random() * 4 + 1;
+this.speedX = Math.random() * 3 - 1.5;
+this.speedY = Math.random() * (y ? -5 : 1) - 1;
+this.color = colors[Math.floor(Math.random() * colors.length)];
+this.opacity = 1;
+}
+update() {
+this.x += this.speedX;
+this.y += this.speedY;
+this.opacity -= 0.01;
+}
+draw() {
+ctx.fillStyle = this.color;
+ctx.globalAlpha = this.opacity;
+ctx.beginPath();
+ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+ctx.fill();
+}
+}
+
+function animate() {
+ctx.clearRect(0, 0, canvas.width, canvas.height);
+if (particles.length < 60) particles.push(new Particle());
+for (let i = 0; i < particles.length; i++) {
+particles[i].update();
+particles[i].draw();
+if (particles[i].opacity <= 0) {
+particles.splice(i, 1);
+i--;
+}
+}
+requestAnimationFrame(animate);
+}
+animate();
+
+window.addEventListener('resize', () => {
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+});
+</script>
+</body>
+</html>

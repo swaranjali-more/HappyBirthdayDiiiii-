@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surprise Pop-ups!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&family=Parisienne&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --hot-pink: #ff007f;
+            --glass: rgba(255, 255, 255, 0.15);
+            --glass-border: rgba(255, 255, 255, 0.4);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            min-height: 100vh;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(-45deg, #ff1493, #ff007f, #800080, #ff69b4);
+            background-size: 400% 400%;
+            animation: gradientMove 15s ease infinite;
+            color: white;
+            padding: 40px 20px;
+            /* Enable scrolling */
+            overflow-y: auto; 
+            overflow-x: hidden;
+            display: block; /* Changed from flex to allow natural scrolling */
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Star Background */
+        .star {
+            position: fixed;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.5;
+            animation: twinkle var(--duration) infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+            text-align: center;
+            padding-bottom: 50px; /* Space at bottom for scrolling */
+        }
+
+        h1 {
+            font-family: 'Parisienne', cursive;
+            font-size: clamp(2.5rem, 8vw, 4rem);
+            margin-bottom: 10px;
+            text-shadow: 0 0 15px rgba(255, 255, 255, 0.4);
+        }
+
+        .instructions {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            padding: 20px;
+            border-radius: 20px;
+            margin: 0 auto 30px;
+            max-width: 700px;
+            border: 1px dashed var(--glass-border);
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.5rem;
+            color: #ffd1dc;
+        }
+
+        .click-area {
+            display: grid;
+            /* Forced 3 columns per line */
+            grid-template-columns: repeat(3, 1fr); 
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .click-box {
+            background: white;
+            aspect-ratio: 1/1; /* Keeps them square */
+            height: auto;
+            border-radius: 15px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: clamp(1.5rem, 5vw, 2.5rem);
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            user-select: none;
+            border: 4px solid white;
+        }
+
+        .click-box:hover {
+            transform: translateY(-5px) scale(1.05) rotate(3deg);
+            box-shadow: 0 15px 30px rgba(255, 20, 147, 0.4);
+        }
+
+        .counter {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.2rem;
+            color: white;
+            margin-top: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            padding: 10px 25px;
+            border-radius: 50px;
+            display: inline-block;
+            border: 1px solid var(--glass-border);
+        }
+
+        .next-btn {
+            background: linear-gradient(45deg, #ff007f, #ff69b4);
+            color: white;
+            border: none;
+            padding: 18px 45px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 20, 147, 0.5);
+            transition: 0.3s;
+            margin: 40px auto 0;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: block;
+        }
+
+        .next-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(255, 20, 147, 0.7);
+        }
+
+        /* Pop-up Styles */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            background: white;
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.5);
+            z-index: 1000;
+            max-width: 350px;
+            width: 85%;
+            text-align: center;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .popup.active {
+            transform: translate(-50%, -50%) scale(1);
+        }
+        
+        .popup-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: #ff007f;
+            font-weight: bold;
+        }
+        
+        .popup-content {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            line-height: 1.5;
+            color: #333;
+        }
+        
+        .popup-emoji {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+        }
+        
+        .overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            backdrop-filter: blur(5px);
+            z-index: 999;
+            display: none;
+        }
+        
+        .overlay.active {
+            display: block;
+        }
+
+        .music-toggle {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            border: 1px solid var(--glass-border);
+            z-index: 100;
+            cursor: pointer;
+            color: white;
+        }
+
+        .music-toggle.playing {
+            background: var(--hot-pink);
+        }
+    </style>
+</head>
+<body>
+    <div class="music-toggle" id="musicBtn">🎵</div>
+    <div class="overlay" id="overlay"></div>
+    
+    <div class="container">
+        <h1>Surprise messages 🎁</h1>
+        
+        <div class="instructions">
+            Click on the boxes and see what it says?? ✨
+        </div>
+        
+        <div class="click-area">
+            <div class="click-box" data-popup="1">🎀</div>
+            <div class="click-box" data-popup="2">✨</div>
+            <div class="click-box" data-popup="3">💝</div>
+            <div class="click-box" data-popup="4">🎂</div>
+            <div class="click-box" data-popup="5">🎉</div>
+            <div class="click-box" data-popup="6">🎈</div>
+            <div class="click-box" data-popup="7">💖</div>
+            <div class="click-box" data-popup="8">🌟</div>
+            <div class="click-box" data-popup="9">🎁</div>
+        </div>
+        
+        <div class="counter">
+            Surprises found: <span id="counter">0</span>/9
+        </div>
+        
+        <button class="next-btn" id="nextBtn">
+            Birthday Cake Time! 🎂
+        </button>
+    </div>
+    
+    <div class="popup" id="popup1">
+        <div class="popup-close" onclick="closePopup(1)">×</div>
+        <div class="popup-emoji">💝</div>
+        <div class="popup-content">You are precious to my heart in a way I can never fully explain, and I only wish to always keep you close in life ❤️</div>
+    </div>
+    <div class="popup" id="popup2">
+        <div class="popup-close" onclick="closePopup(2)">×</div>
+        <div class="popup-emoji">🎁</div>
+        <div class="popup-content">“07 July — the day a truly beautiful soul was born. Happy Birthday, Saloni Di ❤️”</div>
+    </div>
+    <div class="popup" id="popup3">
+        <div class="popup-close" onclick="closePopup(3)">×</div>
+        <div class="popup-emoji">✨</div>
+        <div class="popup-content">May you always find people who understand your silence the way you understand others. 💖</div>
+    </div>
+    <div class="popup" id="popup4">
+        <div class="popup-close" onclick="closePopup(4)">×</div>
+        <div class="popup-emoji">🎂</div>
+        <div class="popup-content">Happy Birthday to the sweetest person! May all your wishes come true! 🎉</div>
+    </div>
+    <div class="popup" id="popup5">
+        <div class="popup-close" onclick="closePopup(5)">×</div>
+        <div class="popup-emoji">🎈</div>
+        <div class="popup-content">I genuinely wish life treats you gently, because your heart deserves that kind of care. 🎀</div>
+    </div>
+    <div class="popup" id="popup6">
+        <div class="popup-close" onclick="closePopup(6)">×</div>
+        <div class="popup-emoji">💖</div>
+        <div class="popup-content">Somewhere between random talks, shared moments, and unplanned memories, “us” quietly became something I truly value ❤️</div>
+    </div>
+    <div class="popup" id="popup7">
+        <div class="popup-close" onclick="closePopup(7)">×</div>
+        <div class="popup-emoji">🌟</div>
+        <div class="popup-content">May you always find yourself in places where you feel valued and understood. ✨</div>
+    </div>
+    <div class="popup" id="popup8">
+        <div class="popup-close" onclick="closePopup(8)">×</div>
+        <div class="popup-emoji">🎉</div>
+        <div class="popup-content">Let's celebrate you today and every day! You're one in a Billion! 🎊</div>
+    </div>
+    <div class="popup" id="popup9">
+        <div class="popup-close" onclick="closePopup(9)">×</div>
+        <div class="popup-emoji">🎀</div>
+        <div class="popup-content">The best gift I ever received was having you in my life! 💝</div>
+    </div>
+
+    <script>
+        function createStars() {
+            for (let i = 0; i < 100; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                const size = Math.random() * 3 + 'px';
+                star.style.width = size;
+                star.style.height = size;
+                star.style.left = Math.random() * 100 + 'vw';
+                star.style.top = Math.random() * 100 + 'vh';
+                star.style.setProperty('--duration', Math.random() * 3 + 2 + 's');
+                document.body.appendChild(star);
+            }
+        }
+        createStars();
+
+       // --- Page 2-10 Music Logic (Copy this to every page) ---
+const musicBtn = document.getElementById("musicBtn");
+const audio = new Audio("song4.mpeg"); // Must be the same file name
+audio.loop = true;
+
+// 1. Sync Time Position
+const syncMusic = () => {
+    const savedTime = localStorage.getItem('birthdayMusicTime');
+    if (savedTime) {
+        audio.currentTime = parseFloat(savedTime);
+    }
+    
+    // 2. Check if it was playing on the previous page
+    if (localStorage.getItem('birthdayMusicPlaying') === 'true') {
+        audio.play().then(() => {
+            musicBtn.classList.add("playing");
+            musicBtn.innerHTML = "⏸️";
+        }).catch(() => {
+            // Browsers need 1 user click to resume audio on a new page
+            musicBtn.innerHTML = "🎵";
+            console.log("Waiting for user interaction to resume music...");
+        });
+    }
+};
+
+// Update saved time constantly
+audio.ontimeupdate = () => {
+    localStorage.setItem('birthdayMusicTime', audio.currentTime);
+};
+
+musicBtn.onclick = () => {
+    if (audio.paused) {
+        audio.play();
+        musicBtn.classList.add("playing");
+        musicBtn.innerHTML = "⏸️";
+        localStorage.setItem('birthdayMusicPlaying', 'true');
+    } else {
+        audio.pause();
+        musicBtn.classList.remove("playing");
+        musicBtn.innerHTML = "🎵";
+        localStorage.setItem('birthdayMusicPlaying', 'false');
+    }
+};
+
+// Run sync on load
+window.addEventListener('load', syncMusic);
+
+// Also sync if the user clicks anywhere on the page (to bypass browser blocks)
+window.addEventListener('click', () => {
+    if (localStorage.getItem('birthdayMusicPlaying') === 'true' && audio.paused) {
+        audio.play();
+        musicBtn.classList.add("playing");
+        musicBtn.innerHTML = "⏸️";
+    }
+}, { once: true });
+        
+        document.getElementById('nextBtn').addEventListener('click', () => {
+            window.location.href = 'page 9.html';
+        });
+        
+        let foundCount = 0;
+        const foundPopups = new Set();
+        
+        function showPopup(popupNum) {
+            if (!foundPopups.has(popupNum)) {
+                foundPopups.add(popupNum);
+                foundCount++;
+                document.getElementById('counter').textContent = foundCount;
+            }
+            document.getElementById('popup' + popupNum).classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+            // Disable body scroll when popup is open
+            document.body.style.overflow = "hidden";
+        }
+        
+        function closePopup(popupNum) {
+            document.getElementById('popup' + popupNum).classList.remove('active');
+            document.getElementById('overlay').classList.remove('active');
+            // Re-enable scroll
+            document.body.style.overflow = "auto";
+        }
+        
+        document.getElementById('overlay').addEventListener('click', () => {
+            document.querySelectorAll('.popup').forEach(p => p.classList.remove('active'));
+            document.getElementById('overlay').classList.remove('active');
+            document.body.style.overflow = "auto";
+        });
+        
+        document.querySelectorAll('.click-box').forEach(box => {
+            box.addEventListener('click', function() {
+                const popupNum = this.getAttribute('data-popup');
+                showPopup(popupNum);
+                this.style.background = '#ffd1dc';
+            });
+        });
+    </script>
+</body>
+</html>
